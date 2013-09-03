@@ -11,7 +11,18 @@ var Batch = function(batch_type, bake_time){
 var prepTable = {
   append: function(batch) {
     batchArray.push(batch)
-    console.log(batchArray)
+    $('#prep_batches').append("<li>"+batch.batch_type+ "<button type='button',\
+      id='add_to_oven'> Add to Oven </li>")
+  }
+}
+
+var addToOven = {
+  init: function() {
+    $('#prep_batches').on("click", "#add_to_oven", function(e){
+      console.log(e)
+      alert('Cookie time motherfucker!')
+      $(this).closest('li').remove()
+    }) 
   }
 }
 
@@ -29,4 +40,5 @@ var bakeryForm = {
 
 $(document).ready(function() {
   bakeryForm.get()
+  addToOven.init()
 });
