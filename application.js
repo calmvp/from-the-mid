@@ -19,15 +19,20 @@ var prepTable = {
 var addToOven = {
   init: function() {
     $('#prep_batches').on("click", "#add_to_oven", function(){
-      alert('Cookie time motherfucker!')
-      var indexPosition = $(this).parent().index('li')
-      var cookie = batchArray[indexPosition]
-      oven.rackArray.push(cookie)
-      batchArray.splice(indexPosition, 1)
-      $(this).closest('li').remove()
+      alert('Cookie time, motherfucker!')
+      moveBatch.init(this);
       var rack = $('td:contains("[empty]")').first()
       cookieStatus.update(rack, cookie)
     }) 
+  }
+}
+var moveBatch = {
+  init: function(dat){
+    var indexPosition = $(dat).parent().index('li')
+    cookie = batchArray[indexPosition]
+    oven.rackArray.push(cookie)
+    batchArray.splice(indexPosition, 1)
+    $(dat).closest('li').remove()
   }
 }
 
