@@ -20,7 +20,8 @@ var addToOven = {
   init: function() {
     $('#prep_batches').on("click", "#add_to_oven", function(){
       alert('Cookie time motherfucker!')
-      var indexPosition = $(this).index()
+      var indexPosition = $(this).parent().index('li')
+      console.log(indexPosition)
       var cookie = batchArray[indexPosition]
       oven.rackArray.push(cookie)
       batchArray.splice(indexPosition, 1)
