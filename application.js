@@ -18,11 +18,14 @@ var prepTable = {
 
 var addToOven = {
   init: function() {
-    $('#prep_batches').on("click", "#add_to_oven", function(e){
-      console.log(e)
+    $('#prep_batches').on("click", "#add_to_oven", function(){
       alert('Cookie time motherfucker!')
-      var indexPosition = $(this).closest('li').index();
+      var indexPosition = $(this).index()
+      var cookie = batchArray[indexPosition]
+      batchArray.splice(indexPosition, 1)
       $(this).closest('li').remove()
+      var rack = $('td:contains("[empty]")').first()
+      rack.html(cookie.batch_type + " " + cookie.status).css
     }) 
   }
 }
@@ -34,6 +37,7 @@ var bakeryForm = {
       var type = $(this).find("input[name=batch_type]").val()
       var time = $(this).find("input[name=bake_time]").val()
       batch = new Batch(type, time)
+      batch.doneness()
       prepTable.append(batch)
     })
   }
