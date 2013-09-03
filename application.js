@@ -25,7 +25,8 @@ var addToOven = {
       batchArray.splice(indexPosition, 1)
       $(this).closest('li').remove()
       var rack = $('td:contains("[empty]")').first()
-      rack.html(cookie.batch_type + " " + cookie.status).css
+      rack.html(cookie.batch_type + " " + cookie.status)
+      rack.css({"background-color": "red", "color": "white"})
     }) 
   }
 }
