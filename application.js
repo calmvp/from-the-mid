@@ -26,8 +26,6 @@ var addToOven = {
       batchArray.splice(indexPosition, 1)
       $(this).closest('li').remove()
       var rack = $('td:contains("[empty]")').first()
-      // rack.html(cookie.batch_type + " " + cookie.status)
-      // rack.css({"background-color": "red", "color": "white"})
       cookieStatus.update(rack, cookie)
     }) 
   }
@@ -35,8 +33,18 @@ var addToOven = {
 
 var cookieStatus = {
   update: function(rack, cookie){
+    color = "red"
     rack.html(cookie.batch_type + " " + cookie.status)
-    rack.css({"background-color": "red", "color": "white"})}
+      if (cookie.status == "still_gooey"){
+        color = "yellow"
+      }
+      else if (cookie.status == "just_right"){
+        color = "green"
+      }
+      else if (cookie.status == "crispy"){
+        color = "black"
+      }
+    rack.css({"background-color": color, "color": "white"})}
 }
 
 var oven = {
@@ -47,7 +55,8 @@ var oven = {
       oven.timeBaked += 1
       for (var i = 0; i < oven.rackArray.length; i++){
         cookie = oven.rackArray[i]
-        rack = $('#oven').find("tr:nth-child(i + 1)")
+        rackPosition = i + 1
+        rack = $("td:contains("+cookie.batch_type+")")
         if ( oven.timeBaked > cookie.bake_time){
           cookie.doneness("crispy")
         }
@@ -57,6 +66,7 @@ var oven = {
         else {
           cookie.doneness("still_gooey")
         }
+         cookieStatus.update(rack, cookie)
       }
     })
   }
