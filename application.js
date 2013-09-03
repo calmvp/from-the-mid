@@ -12,7 +12,7 @@ var prepTable = {
   append: function(batch) {
     batchArray.push(batch)
     $('#prep_batches').append("<li>"+batch.batch_type+ "<button type='button',\
-      id='add_to_oven'> Add to Oven </li>")
+      id='add_to_oven'> Add to Oven</button></li>")
   }
 }
 
@@ -21,6 +21,7 @@ var addToOven = {
     $('#prep_batches').on("click", "#add_to_oven", function(e){
       console.log(e)
       alert('Cookie time motherfucker!')
+      var indexPosition = $(this).closest('li').index();
       $(this).closest('li').remove()
     }) 
   }
