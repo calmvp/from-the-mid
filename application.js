@@ -21,7 +21,6 @@ var addToOven = {
     $('#prep_batches').on("click", "#add_to_oven", function(){
       alert('Cookie time motherfucker!')
       var indexPosition = $(this).parent().index('li')
-      console.log(indexPosition)
       var cookie = batchArray[indexPosition]
       oven.rackArray.push(cookie)
       batchArray.splice(indexPosition, 1)
@@ -74,20 +73,26 @@ var oven = {
 }
 
 var bakeryForm = {
-  get: function() {
+  init: function() {
     $("#new_batch").on("submit", function(e){
       e.preventDefault();
-      var type = $(this).find("input[name=batch_type]").val()
-      var time = $(this).find("input[name=bake_time]").val()
-      batch = new Batch(type, time)
-      batch.doneness()
-      prepTable.append(batch)
+      prepareBatch.init(this);
     })
   }
 }
 
+var prepareBatch = {
+  init: function(that) {
+    var type = $(that).find("input[name=batch_type]").val()
+    var time = $(that).find("input[name=bake_time]").val()
+    batch = new Batch(type, time)
+    batch.doneness()
+    prepTable.append(batch)
+  }
+}
+
 $(document).ready(function() {
-  bakeryForm.get()
+  bakeryForm.init()
   addToOven.init()
   oven.bake()
 });
