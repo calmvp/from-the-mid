@@ -22,12 +22,43 @@ var addToOven = {
       alert('Cookie time motherfucker!')
       var indexPosition = $(this).index()
       var cookie = batchArray[indexPosition]
+      oven.rackArray.push(cookie)
       batchArray.splice(indexPosition, 1)
       $(this).closest('li').remove()
       var rack = $('td:contains("[empty]")').first()
-      rack.html(cookie.batch_type + " " + cookie.status)
-      rack.css({"background-color": "red", "color": "white"})
+      // rack.html(cookie.batch_type + " " + cookie.status)
+      // rack.css({"background-color": "red", "color": "white"})
+      cookieStatus.update(rack, cookie)
     }) 
+  }
+}
+
+var cookieStatus = {
+  update: function(rack, cookie){
+    rack.html(cookie.batch_type + " " + cookie.status)
+    rack.css({"background-color": "red", "color": "white"})}
+}
+
+var oven = {
+  rackArray: [],
+  timeBaked: 0,
+  bake: function(){
+    $("#bake").on('click', function(){
+      oven.timeBaked += 1
+      for (var i = 0; i < oven.rackArray.length; i++){
+        cookie = oven.rackArray[i]
+        rack = $('#oven').find("tr:nth-child(i + 1)")
+        if ( oven.timeBaked > cookie.bake_time){
+          cookie.doneness("crispy")
+        }
+        else if (oven.timeBaked == cookie.bake_time){
+          cookie.doneness("just_right")
+        }
+        else {
+          cookie.doneness("still_gooey")
+        }
+      }
+    })
   }
 }
 
@@ -47,4 +78,5 @@ var bakeryForm = {
 $(document).ready(function() {
   bakeryForm.get()
   addToOven.init()
+  oven.bake()
 });
