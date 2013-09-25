@@ -91,8 +91,12 @@ var prepareBatch = {
     var type = $(that).find("input[name=batch_type]").val()
     var time = $(that).find("input[name=bake_time]").val()
     batch = new Batch(type, time)
+    $.post('/prep_table', batch, function(response){
+      console.log(response)
+      prepTable.append(response)
+    }, "json")
     batch.doneness()
-    prepTable.append(batch)
+    // prepTable.append(batch)
   }
 }
 
