@@ -19,7 +19,7 @@ var prepTable = {
 var addToOven = {
   init: function() {
     $('#prep_batches').on("click", "#add_to_oven", function(){
-      alert('Cookie time, motherfucker!')
+      alert('Cookies in the Oven!')
       moveBatch.init(this);
       var rack = $('td:contains("[empty]")').first()
       cookieStatus.update(rack, cookie)
